@@ -24,6 +24,7 @@ import java.sql.DriverManager;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -87,6 +88,14 @@ public class PrestoDriver
         }
 
         return new PrestoConnection(parseDriverUrl(url), user, queryExecutor);
+    }
+
+    public Connection connect(String url, Map<String, String> info)
+            throws SQLException
+    {
+       Properties properties = new Properties();
+       properties.putAll(info);
+       return connect(url, properties);
     }
 
     @Override
